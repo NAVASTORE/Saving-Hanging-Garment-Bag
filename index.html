@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saving Hanging Garment Bag | Solusi Penyimpanan Pakaian Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cream-soft': '#f5f5dc',
+                        'olive-green': '#6b705c',
+                        'terracotta': '#d08c60',
+                        'putih-pucat': '#faf9f6',
+                        'cokelat-tua': '#5b3a29',
+                    },
+                    fontFamily: {
+                        'heading': ['Poppins', 'sans-serif'],
+                        'body': ['Roboto', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.07)',
+                        'soft': '0 4px 20px rgba(0, 0, 0, 0.05)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom CSS for glassmorphism and animations */
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        .gradient-overlay {
+            background: linear-gradient(135deg, rgba(245, 245, 220, 0.9) 0%, rgba(107, 112, 92, 0.85) 100%);
+        }
+        
+        .hero-height {
+            height: 100vh;
+            min-height: 700px;
+            max-height: 900px;
+        }
+        
+        .slide-in {
+            animation: slideIn 0.5s ease-out forwards;
+        }
+        
+        .slide-out {
+            animation: slideOut 0.5s ease-out forwards;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+        
+        .popup-hover:hover .popup-timer {
+            animation-play-state: paused;
+        }
+        
+        .popup-timer {
+            height: 4px;
+            background: linear-gradient(90deg, #d08c60 0%, #6b705c 100%);
+            animation: timer 5s linear forwards;
+        }
+        
+        @keyframes timer {
+            0% { width: 100%; }
+            100% { width: 0%; }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .zoom-hover {
+            transition: transform 0.3s ease;
+        }
+        
+        .zoom-hover:hover {
+            transform: scale(1.03);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .gallery-item {
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .gallery-item img {
+            transition: transform 0.5s ease;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+        }
+        
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+        }
+        
+        .sticky-cta {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .sticky-cta.active {
+            transform: translateY(0);
+        }
+        
+        .promo-card {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .promo-card:hover {
+            border-color: #d08c60;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .promo-card.active {
+            transform: scale(1.05);
+            border-color: #d08c60;
+        }
+        
+        .promo-highlight {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: linear-gradient(45deg, #d08c60, #6b705c);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .countdown-box {
+            background: linear-gradient(45deg, #5b3a29, #d08c60);
+        }
+        
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0) translateX(-50%);}
+            40% {transform: translateY(-20px) translateX(-50%);}
+            60% {transform: translateY(-10px) translateX(-50%);}
+        }
+        
+        /* Order Form Overrides */
+        .ooef .orderonline-embed-form {
+            background: transparent !important;
+            border: none !important;
+            padding: 0 !important;
+        }
+        
+        .ooef input, .ooef select, .ooef textarea {
+            background: rgba(255, 255, 255, 0.85) !important;
+            border: 1px solid rgba(107, 112, 92, 0.3) !important;
+            border-radius: 8px !important;
+            padding: 12px 16px !important;
+            font-family: 'Roboto', sans-serif !important;
+            color: #5b3a29 !important;
+        }
+        
+        .ooef button {
+            background: linear-gradient(45deg, #d08c60, #6b705c) !important;
+            border: none !important;
+            border-radius: 8px !important;
+            padding: 14px 20px !important;
+            font-family: 'Poppins', sans-serif !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 1px !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .ooef button:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 10px 20px rgba(208, 140, 96, 0.3) !important;
+        }
+        
+        .ooef label {
+            color: #5b3a29 !important;
+            font-family: 'Roboto', sans-serif !important;
+            font-weight: 500 !important;
+            margin-bottom: 8px !important;
+        }
+    </style>
+</head>
+<body class="font-body text-cokelat-tua bg-putih-pucat">
+    <!-- Social Proof Popup -->
+    <div id="social-popup" class="fixed top-5 right-5 w-full max-w-xs z-50 hidden">
+        <div class="popup-hover bg-white rounded-xl shadow-xl overflow-hidden glassmorphism">
+            <div class="popup-timer"></div>
+            <div class="p-4 flex items-start">
+                <div class="bg-olive-green rounded-full w-10 h-10 flex items-center justify-center text-white font-bold flex-shrink-0">P</div>
+                <div class="ml-3">
+                    <p class="font-medium text-sm" id="popup-text">Putri dari Bandung baru saja memesan Saving Hanging Garment Bag</p>
+                    <p class="text-xs text-gray-500 mt-1">2 menit yang lalu</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-content" id="lightbox-img" src="" alt="Product image">
+    </div>
+
+    <!-- Sticky CTA -->
+    <div class="sticky-cta bg-white shadow-lg py-4 px-6">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+            <div>
+                <h3 class="font-heading font-bold text-lg">Saving Hanging Garment Bag</h3>
+                <div class="flex items-center mt-1">
+                    <span class="text-terracotta font-bold text-xl">Rp 161.298</span>
+                    <span class="ml-2 text-gray-500 line-through">Rp 358.596</span>
+                    <span class="ml-2 bg-red-100 text-red-700 px-2 py-1 rounded text-xs font-bold">Diskon 55%</span>
+                </div>
+            </div>
+            <button class="mt-3 md:mt-0 bg-gradient-to-r from-terracotta to-olive-green hover:from-olive-green hover:to-terracotta text-white font-heading font-bold py-3 px-8 rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 pulse">
+                BELI SEKARANG <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-height relative overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://cdn.newfastcdn.com/image/5b5f2af15d93fb4798f7f3ab8e59d97417b0cfc3-600.jpeg" alt="Saving Hanging Garment Bag" class="w-full h-full object-cover">
+            <div class="absolute inset-0 gradient-overlay"></div>
+        </div>
+        
+        <div class="container mx-auto px-4 relative z-10 h-full flex flex-col justify-center">
+            <div class="max-w-2xl glassmorphism rounded-2xl p-8 backdrop-blur-lg">
+                <div class="flex items-center">
+                    <span class="bg-terracotta text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Best Seller</span>
+                    <span class="ml-3 bg-cokelat-tua text-white text-xs font-bold px-3 py-1 rounded-full">⭐ 4.9/5 (1.234 Ulasan)</span>
+                </div>
+                
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mt-6 leading-tight">
+                    Saving Hanging <br> <span class="text-olive-green">Garment Bag</span>
+                </h1>
+                
+                <p class="text-lg md:text-xl mt-6 max-w-xl">
+                    Solusi penyimpanan pakaian premium untuk menjaga pakaian Anda tetap rapi, bersih, dan siap pakai kapan saja.
+                </p>
+                
+                <div class="mt-8 flex flex-wrap items-center gap-4">
+                    <button class="bg-gradient-to-r from-terracotta to-olive-green hover:from-olive-green hover:to-terracotta text-white font-heading font-bold py-4 px-8 rounded-xl shadow-xl transition-all duration-300 transform hover:scale-105 pulse">
+                        BELI SEKARANG <i class="fas fa-shopping-bag ml-2"></i>
+                    </button>
+                    
+                    <div class="flex items-center">
+                        <div class="flex -space-x-2">
+                            <img class="w-10 h-10 rounded-full border-2 border-white" src="https://i.pinimg.com/736x/12/55/81/1255812160b13fdd08e6bc1cd2d2f713.jpg" alt="Customer">
+                            <img class="w-10 h-10 rounded-full border-2 border-white" src="https://i.pinimg.com/736x/cc/fb/b3/ccfbb3c0cd6c1edae44424f08c0a9096.jpg" alt="Customer">
+                            <img class="w-10 h-10 rounded-full border-2 border-white" src="https://i.pinimg.com/736x/d9/95/91/d995918ad9b24705e23fd7cbd5d0e4ec.jpg" alt="Customer">
+                        </div>
+                        <p class="ml-3 text-sm"><span class="font-bold">1.234+</span> wanita sudah membeli</p>
+                    </div>
+                </div>
+                
+                <div class="mt-10 flex flex-wrap gap-6">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-olive-green flex items-center justify-center text-white">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <p class="ml-3">Gratis Ongkir</p>
+                    </div>
+                    
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-olive-green flex items-center justify-center text-white">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <p class="ml-3">Garansi 1 Minggu</p>
+                    </div>
+                    
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-olive-green flex items-center justify-center text-white">
+                            <i class="fas fa-undo"></i>
+                        </div>
+                        <p class="ml-3">Garansi Kepuasan</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="scroll-down">
+            <a href="#features" class="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-lg">
+                <i class="fas fa-chevron-down text-terracotta text-xl"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Problem Solution Section -->
+    <section class="py-20 bg-cream-soft">
+        <div class="container mx-auto px-4">
+            <div class="text-center max-w-3xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-heading font-bold">Masalah Penyimpanan Pakaian Anda <span class="text-terracotta">Terpecahkan</span></h2>
+                <p class="mt-4 text-lg">Simpan pakaian favorit Anda dengan cara yang lebih baik</p>
+            </div>
+            
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="bg-white rounded-2xl p-8 shadow-lg">
+                    <h3 class="text-2xl font-heading font-bold text-red-600">Masalah Umum</h3>
+                    <ul class="mt-6 space-y-4">
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-600">
+                                <i class="fas fa-times"></i>
+                            </div>
+                            <p class="ml-3">Pakaian berdebu dan kotor saat disimpan lama</p>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-600">
+                                <i class="fas fa-times"></i>
+                            </div>
+                            <p class="ml-3">Lemari penuh dan berantakan</p>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-600">
+                                <i class="fas fa-times"></i>
+                            </div>
+                            <p class="ml-3">Pakaian kusut dan perlu disetrika ulang</p>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-600">
+                                <i class="fas fa-times"></i>
+                            </div>
+                            <p class="ml-3">Sulit menemukan pakaian tertentu</p>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-600">
+                                <i class="fas fa-times"></i>
+                            </div>
+                            <p class="ml-3">Pakaian rusak karena serangga atau kelembaban</p>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-gradient-to-br from-olive-green to-cokelat-tua rounded-2xl p-8 text-white">
+                    <h3 class="text-2xl font-heading font-bold text-white">Solusi Dengan Garment Bag</h3>
+                    <ul class="mt-6 space-y-4">
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-white bg-opacity-20 flex items-center justify-center">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <p class="ml-3">Bahan PEVA melindungi pakaian dari debu dan kotoran</p>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-white bg-opacity-20 flex items-center justify-center">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <p class="ml-3">Desain gantung menghemat ruang lemari</p>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-white bg-opacity-20 flex items-center justify-center">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <p class="ml-3">Pakaian tetap rapi dan tidak kusut</p>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-white bg-opacity-20 flex items-center justify-center">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <p class="ml-3">Mudah melihat dan mengambil pakaian</p>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-white bg-opacity-20 flex items-center justify-center">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <p class="ml-3">Melindungi dari serangga dan kelembaban</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-16 bg-white rounded-2xl p-6 shadow-lg max-w-4xl mx-auto">
+                <img src="https://cdn.fastcdnshop.com/image/e11434a3d8b2a53972900d550bd160444b3669bc.gif" alt="Problem Solution" class="w-full rounded-xl">
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-putih-pucat">
+        <div class="container mx-auto px-4">
+            <div class="text-center max-w-3xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-heading font-bold">Fitur <span class="text-terracotta">Premium</span></h2>
+                <p class="mt-4 text-lg">Didesain khusus untuk melindungi pakaian kesayangan Anda</p>
+            </div>
+            
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="feature-card bg-white rounded-2xl p-8 shadow-lg transition-all duration-300">
+                    <div class="w-16 h-16 rounded-full bg-cream-soft flex items-center justify-center text-terracotta text-2xl">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-heading font-bold mt-6">Bahan PEVA Berkualitas</h3>
+                    <p class="mt-3">Melindungi pakaian dari debu, kotoran, dan kelembaban saat disimpan dalam waktu lama.</p>
+                </div>
+                
+                <div class="feature-card bg-white rounded-2xl p-8 shadow-lg transition-all duration-300">
+                    <div class="w-16 h-16 rounded-full bg-cream-soft flex items-center justify-center text-terracotta text-2xl">
+                        <i class="fas fa-zipper"></i>
+                    </div>
+                    <h3 class="text-xl font-heading font-bold mt-6">Resleting Premium</h3>
+                    <p class="mt-3">Mudah memasukkan dan mengeluarkan pakaian dengan resleting yang halus dan kuat.</p>
+                </div>
+                
+                <div class="feature-card bg-white rounded-2xl p-8 shadow-lg transition-all duration-300">
+                    <div class="w-16 h-16 rounded-full bg-cream-soft flex items-center justify-center text-terracotta text-2xl">
+                        <i class="fas fa-ruler-combined"></i>
+                    </div>
+                    <h3 class="text-xl font-heading font-bold mt-6">Ukuran Spesial</h3>
+                    <p class="mt-3">Ukuran yang sempurna untuk berbagai jenis pakaian, dari gaun hingga jas.</p>
+                </div>
+                
+                <div class="feature-card bg-white rounded-2xl p-8 shadow-lg transition-all duration-300">
+                    <div class="w-16 h-16 rounded-full bg-cream-soft flex items-center justify-center text-terracotta text-2xl">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3 class="text-xl font-heading font-bold mt-6">Jendela Transparan</h3>
+                    <p class="mt-3">Melihat isi garment bag tanpa perlu membuka resleting.</p>
+                </div>
+                
+                <div class="feature-card bg-white rounded-2xl p-8 shadow-lg transition-all duration-300">
+                    <div class="w-16 h-16 rounded-full bg-cream-soft flex items-center justify-center text-terracotta text-2xl">
+                        <i class="fas fa-recycle"></i>
+                    </div>
+                    <h3 class="text-xl font-heading font-bold mt-6">Ramah Lingkungan</h3>
+                    <p class="mt-3">Bahan bebas PVC dan ramah lingkungan, aman untuk pakaian Anda.</p>
+                </div>
+                
+                <div class="feature-card bg-white rounded-2xl p-8 shadow-lg transition-all duration-300">
+                    <div class="w-16 h-16 rounded-full bg-cream-soft flex items-center justify-center text-terracotta text-2xl">
+                        <i class="fas fa-tshirt"></i>
+                    </div>
+                    <h3 class="text-xl font-heading font-bold mt-6">Multi Fungsi</h3>
+                    <p class="mt-3">Cocok untuk berbagai pakaian: gaun, jas, baju kerja, pakaian musiman, dan lainnya.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="py-20 bg-cream-soft">
+        <div class="container mx-auto px-4">
+            <div class="text-center max-w-3xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-heading font-bold">Galeri <span class="text-terracotta">Produk</span></h2>
+                <p class="mt-4 text-lg">Lihat keindahan dan fungsi garment bag premium kami</p>
+            </div>
+            
+            <div class="mt-16 gallery-grid">
+                <div class="gallery-item cursor-pointer" data-src="https://cdn.newfastcdn.com/image/5b5f2af15d93fb4798f7f3ab8e59d97417b0cfc3-600.jpeg">
+                    <img src="https://cdn.newfastcdn.com/image/5b5f2af15d93fb4798f7f3ab8e59d97417b0cfc3-600.jpeg" alt="Saving Hanging Garment Bag" loading="lazy">
+                </div>
+                
+                <div class="gallery-item cursor-pointer" data-src="https://cdn.newfastcdn.com/image/46a60357869988f619a69e8397fb0d519b0a4b63-600.jpeg">
+                    <img src="https://cdn.newfastcdn.com/image/46a60357869988f619a69e8397fb0d519b0a4b63-600.jpeg" alt="Saving Hanging Garment Bag" loading="lazy">
+                </div>
+                
+                <div class="gallery-item cursor-pointer" data-src="https://cdn.newfastcdn.com/image/f53d1d810871985ff237c155aaad7eadd9aee829-600.jpeg">
+                    <img src="https://cdn.newfastcdn.com/image/f53d1d810871985ff237c155aaad7eadd9aee829-600.jpeg" alt="Saving Hanging Garment Bag" loading="lazy">
+                </div>
+                
+                <div class="gallery-item cursor-pointer" data-src="https://cdn.newfastcdn.com/image/8b3ec8ccadb4daa87773c14dd060ce1359af0281-600.jpeg">
+                    <img src="https://cdn.newfastcdn.com/image/8b3ec8ccadb4daa87773c14dd060ce1359af0281-600.jpeg" alt="Saving Hanging Garment Bag" loading="lazy">
+                </div>
+                
+                <div class="gallery-item cursor-pointer" data-src="https://cdn.newfastcdn.com/image/a7ada466c713aa29de2ee6b59cde153a21389c1b-600.jpeg">
+                    <img src="https://cdn.newfastcdn.com/image/a7ada466c713aa29de2ee6b59cde153a21389c1b-600.jpeg" alt="Saving Hanging Garment Bag" loading="lazy">
+                </div>
+                
+                <div class="gallery-item cursor-pointer" data-src="https://cdn.newfastcdn.com/image/e7868bb82801a5d53b342c82e2dd61849014f62d-700.jpeg">
+                    <img src="https://cdn.newfastcdn.com/image/13aaf2328c3eb6bdac6098dbcbc10bd73abe8551-700.jpeg" alt="Saving Hanging Garment Bag" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="py-20 bg-putih-pucat">
+        <div class="container mx-auto px-4">
+            <div class="text-center max-w-3xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-heading font-bold">Penawaran <span class="text-terracotta">Spesial</span></h2>
+                <p class="mt-4 text-lg">Dapatkan diskon eksklusif untuk pembelian hari ini</p>
+                
+                <div class="mt-8 inline-block bg-red-600 text-white py-2 px-6 rounded-full">
+                    <div class="flex items-center">
+                        <i class="fas fa-fire mr-2"></i>
+                        <span>PROMO TERBATAS - HANYA HARI INI!</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 max-w-5xl mx-auto">
+                <div class="countdown-box text-white text-center py-4 px-6 rounded-xl">
+                    <h3 class="font-heading font-bold text-lg">PENAWARAN BERAKHIR DALAM:</h3>
+                    <div id="countdown" class="flex justify-center mt-3 space-x-4">
+                        <div class="flex flex-col items-center">
+                            <span id="hours" class="text-3xl font-bold">02</span>
+                            <span>Jam</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <span id="minutes" class="text-3xl font-bold">45</span>
+                            <span>Menit</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <span id="seconds" class="text-3xl font-bold">30</span>
+                            <span>Detik</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div class="promo-card relative bg-white rounded-2xl p-8 shadow-lg">
+                    <div class="promo-highlight">PALING POPULER</div>
+                    <h3 class="text-2xl font-heading font-bold text-center">BELI 1</h3>
+                    
+                    <div class="mt-6 flex justify-center">
+                        <div class="text-center">
+                            <div class="flex items-center justify-center">
+                                <span class="text-4xl font-bold text-terracotta">Rp 161.298</span>
+                            </div>
+                            <div class="mt-2 text-gray-500 line-through">Rp 358.596</div>
+                            <div class="mt-1 text-green-600 font-bold">Hemat 55%</div>
+                        </div>
+                    </div>
+                    
+                    <ul class="mt-8 space-y-3">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span>1x Saving Hanging Garment Bag</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span>Gratis ongkir ke seluruh Indonesia</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span>Garansi 1 Minggu</span>
+                        </li>
+                    </ul>
+                    
+                    <button class="mt-8 w-full bg-gradient-to-r from-terracotta to-olive-green hover:from-olive-green hover:to-terracotta text-white font-heading font-bold py-4 px-8 rounded-xl shadow-xl transition-all duration-300">
+                        BELI SEKARANG - Rp 161.298
+                    </button>
+                </div>
+                
+                <div class="promo-card relative bg-gradient-to-br from-cokelat-tua to-olive-green text-white rounded-2xl p-8 shadow-lg">
+                    <div class="promo-highlight">PALING HEMAT</div>
+                    <h3 class="text-2xl font-heading font-bold text-center">BELI 3</h3>
+                    
+                    <div class="mt-6 flex justify-center">
+                        <div class="text-center">
+                            <div class="flex items-center justify-center">
+                                <span class="text-4xl font-bold text-white">Rp 179.689</span>
+                            </div>
+                            <div class="mt-2 text-gray-200 line-through">Rp 389.378</div>
+                            <div class="mt-1 text-yellow-300 font-bold">Hemat 54% Per Pack</div>
+                        </div>
+                    </div>
+                    
+                    <ul class="mt-8 space-y-3">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-yellow-300 mr-2"></i>
+                            <span>3x Saving Hanging Garment Bag</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-yellow-300 mr-2"></i>
+                            <span>Gratis ongkir ke seluruh Indonesia</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-yellow-300 mr-2"></i>
+                            <span>Garansi 1 Minggu</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-yellow-300 mr-2"></i>
+                            <span>Bonus tas penyimpanan eksklusif</span>
+                        </li>
+                    </ul>
+                    
+                    <button class="mt-8 w-full bg-gradient-to-r from-terracotta to-amber-700 hover:from-amber-700 hover:to-terracotta text-white font-heading font-bold py-4 px-8 rounded-xl shadow-xl transition-all duration-300">
+                        BELI 3 PACK - Rp 179.689
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-cream-soft">
+        <div class="container mx-auto px-4">
+            <div class="text-center max-w-3xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-heading font-bold">Apa Kata <span class="text-terracotta">Pelanggan</span></h2>
+                <p class="mt-4 text-lg">Dibeli dan digunakan oleh ribuan wanita di Indonesia</p>
+            </div>
+            
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-2xl p-6 shadow-lg">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full overflow-hidden">
+                            <img src="https://i.pinimg.com/1200x/e9/0c/4f/e90c4f58d41cb3bca4b2301f14abcada.jpg" alt="Customer">
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="font-heading font-bold">Rizky Anggita</h4>
+                            <div class="flex text-amber-400 mt-1">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="mt-4 italic">"Saya sudah mencoba berbagai garment bag, tapi yang ini benar-benar berbeda. Kualitasnya premium dan pakaian saya tetap bersih meskipun disimpan berbulan-bulan. Sangat worth it!"</p>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-6 shadow-lg">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full overflow-hidden">
+                            <img src="https://i.pinimg.com/736x/56/fa/a3/56faa3dcab49bfba64b0dd857d68cc19.jpg" alt="Customer">
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="font-heading font-bold">Dewi Anggraeni</h4>
+                            <div class="flex text-amber-400 mt-1">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="mt-4 italic">"Resletingnya sangat halus dan mudah digunakan. Saya suka sekali dengan jendela transparannya, jadi saya bisa melihat isinya tanpa membuka. Lemari saya sekarang jauh lebih rapi!"</p>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-6 shadow-lg">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full overflow-hidden">
+                            <img src="https://i.pinimg.com/736x/d3/7c/2b/d37c2b5d09c1cdfa805d6487ea80d10f.jpg" alt="Customer">
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="font-heading font-bold">Rina Wijaya</h4>
+                            <div class="flex text-amber-400 mt-1">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="mt-4 italic">"Saya membeli paket 3 dan sangat puas! Kualitasnya konsisten di semua garment bag. Bonus tas penyimpanannya juga berguna. Pelayanannya cepat dan pengemasan rapi."</p>
+                </div>
+            </div>
+            
+            <div class="mt-16 flex justify-center">
+                <div class="flex items-center bg-white rounded-full py-3 px-6 shadow-lg">
+                    <div class="w-14 h-14 rounded-full bg-green-100 flex items-center justify-center text-green-600">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="font-bold">1.234+</p>
+                        <p>Pelanggan Puas</p>
+                    </div>
+                    
+                    <div class="w-14 h-14 rounded-full bg-green-100 flex items-center justify-center text-green-600 ml-6">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="font-bold">4.9/5</p>
+                        <p>Ulasan Bintang</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Form Section -->
+    <section class="py-20 bg-gradient-to-b from-olive-green to-cokelat-tua text-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto bg-white bg-opacity-10 glassmorphism rounded-3xl p-8 md:p-12">
+                <div class="text-center">
+                    <h2 class="text-3xl md:text-4xl font-heading font-bold">Pesan Sekarang</h2>
+                    <p class="mt-4 text-lg max-w-2xl mx-auto">Isi formulir di bawah ini untuk memesan Saving Hanging Garment Bag dengan harga spesial hari ini</p>
+                </div>
+                
+                <div class="mt-8">
+                    <!-- OrderOnline Embed Code -->
+                    <div class="ooef">
+                        <form class="orderonline-embed-form" data-username="nava" data-product-slug="saving-hanging-garment-bag" data-product-id="68aace9d339bcf003a0bf8e2" id="oo-embed-form-saving-hanging-garment-bag-7662" data-origin="orderonline">
+                            <div class="ooef-loader"><style>.ooef-loader{visibility: hidden;opacity: 0;position: absolute;left: 0;right: 0;top: 0;bottom: 0;display: flex;justify-content: center;align-items: center;flex-direction: column;animation: ooLoadingIn 10s ease;-webkit-animation: ooLoadingIn 10s ease;animation-fill-mode: forwards;overflow: hidden}@keyframes ooLoadingIn{0%{visibility: hidden;opacity: 0}20%{visibility: visible;opacity: 0}100%{visibility: visible;opacity: 1}}@-webkit-keyframes ooLoadingIn{0%{visibility: hidden;opacity: 0}20%{visibility: visible;opacity: 0}100%{visibility: visible;opacity: 1}}.ooef-loader>div,.ooef-loader>div:after{border-radius: 50%;width: 2.5rem;height: 2.5rem}.ooef-loader>div{font-size: 10px;position: relative;text-indent: -9999em;border: .25rem solid #f5f5f5;border-left: .25rem solid #55c4cf;-webkit-transform: translateZ(0);-ms-transform: translateZ(0);transform: translateZ(0);-webkit-animation: ooLoading 1.1s infinite linear;animation: ooLoading 1.1s infinite linear}.ooef-loader.error>div{border-left: .25rem solid #ff4500;animation-duration: 5s}@-webkit-keyframes ooLoading{0%{-webkit-transform: rotate(0);transform: rotate(0)}100%{-webkit-transform: rotate(360deg);transform: rotate(360deg)}}@keyframes ooLoading{0%{-webkit-transform: rotate(0);transform: rotate(0)}100%{-webkit-transform: rotate(360deg);transform: rotate(360deg)}}</style><div aria-live="polite" role="status"><div>Loading...</div></div></div>
+                        </form>
+                    </div>
+                    <script>
+                        if (typeof xLogError != 'function') {
+                            var xLogError = function (error) {
+                                var req = new XMLHttpRequest();
+                                var payload = JSON.stringify({
+                                    url: document.location.href,
+                                    line: error.line,
+                                    stack: error.stack
+                                });
+                                var params = 'message=' + encodeURIComponent(error.name) + '&payload=' + encodeURIComponent(payload) + '&type=embed&level=error';
+                                req.open('POST', 'https://api.orderonline.id/log', true);
+                                req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                                req.send(params);
+                            };
+                        }
+                        try {
+                            if (typeof xEmbedScript != 'function') {
+                                var xEmbedScript = function () {
+                                    !function(w, d, e, v, id, t, s) {
+                                        if (d.getElementById(id)) return;
+                                        t = d.createElement(e);t.async = !0;t.src = v;t.id = id;
+                                        s = d.getElementsByTagName(e)[0];
+                                        s.parentNode.insertBefore(t, s);
+                                    }(window, document, 'script', 'https://cdn.orderonline.id/js/embed-v2-slim.min.js?v=8.0.4', 'oo-embed-js');
+                                };
+                            }
+                            if (typeof xEmbedInit != 'function') {
+                                var xEmbedInit = function (w, n) {
+                                    if (w.ooe) return;
+                                    n = w.ooe = function() {
+                                        n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+                                    };
+                                    if (!w._ooe) w._ooe = n;
+                                    n.push = n;n.loaded = !0;n.version = '8.0.4';n.queue = [];
+                                };
+                            }
+                            xEmbedInit(window);
+                            ooe('setup', 'redirect', 'https://nava.orderonline.id');
+                            ooe('init', '5f119cd08dcbdb2737678706', '68aace9d339bcf003a0bf8e2', '68aace9d339bcf003a0bf8e3', 'oo-embed-form-saving-hanging-garment-bag-7662', {"mode":"page","action":"Klik untuk pemesanan","title":"Form Pemesanan","triggerPixel":true,"triggerGtm":true});
+                            if (!window.jQuery) {
+                                !function(w, d, e, v, id, t, s) {
+                                    if (d.getElementById(id)) return;
+                                    t = d.createElement(e);t.async = !0;t.src = v;t.id = id;
+                                    t.addEventListener('load', xEmbedScript);
+                                    s = d.getElementsByTagName(e)[0];
+                                    s.parentNode.insertBefore(t, s);
+                                }(window, document, 'script', 'https://cdn.orderonline.id/js/vendor/jquery.min.js', 'oo-embed-jquery');
+                            } else {
+                                xEmbedScript();
+                            }
+                        } catch (e) {
+                            xLogError(e);
+                            throw e;
+                        }
+                    </script>
+                    <!-- End OrderOnline Embed Code -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Sticky CTA
+        window.addEventListener('scroll', function() {
+            const stickyCta = document.querySelector('.sticky-cta');
+            if (window.scrollY > 500) {
+                stickyCta.classList.add('active');
+            } else {
+                stickyCta.classList.remove('active');
+            }
+        });
+
+        // Lightbox Gallery
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxClose = document.querySelector('.lightbox-close');
+        
+        galleryItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const imgSrc = this.getAttribute('data-src');
+                lightboxImg.setAttribute('src', imgSrc);
+                lightbox.style.display = 'flex';
+            });
+        });
+        
+        lightboxClose.addEventListener('click', function() {
+            lightbox.style.display = 'none';
+        });
+        
+        lightbox.addEventListener('click', function(e) {
+            if (e.target === lightbox) {
+                lightbox.style.display = 'none';
+            }
+        });
+
+        // Social Proof Popup
+        const socialPopup = document.getElementById('social-popup');
+        const popupText = document.getElementById('popup-text');
+        
+        const names = ['Vina', 'Dina', 'Kartika', 'Lestari', 'Putri', 'Maya Sari', 'Rani', 'Permata', 'Lestari F'];
+        const cities = ['Jakarta', 'Surabaya', 'Bandung', 'Medan', 'Bekasi', 'Tangerang', 'Depok', 'Semarang'];
+        
+        function showPopup() {
+            const randomName = names[Math.floor(Math.random() * names.length)];
+            const randomCity = cities[Math.floor(Math.random() * cities.length)];
+            const minutesAgo = Math.floor(Math.random() * 15) + 1;
+            
+            popupText.textContent = `${randomName} dari ${randomCity} baru saja memesan Saving Hanging Garment Bag`;
+            socialPopup.classList.remove('hidden');
+            socialPopup.classList.add('slide-in');
+            
+            setTimeout(() => {
+                socialPopup.classList.remove('slide-in');
+                socialPopup.classList.add('slide-out');
+                setTimeout(() => {
+                    socialPopup.classList.add('hidden');
+                    socialPopup.classList.remove('slide-out');
+                }, 500);
+            }, 5000);
+        }
+        
+        // Show first popup after 10 seconds
+        setTimeout(showPopup, 10000);
+        
+        // Then show every 10 seconds
+        setInterval(showPopup, 10000);
+        
+        // Countdown Timer
+        function updateCountdown() {
+            const hoursElement = document.getElementById('hours');
+            const minutesElement = document.getElementById('minutes');
+            const secondsElement = document.getElementById('seconds');
+            
+            let hours = parseInt(hoursElement.textContent);
+            let minutes = parseInt(minutesElement.textContent);
+            let seconds = parseInt(secondsElement.textContent);
+            
+            seconds--;
+            
+            if (seconds < 0) {
+                seconds = 59;
+                minutes--;
+                
+                if (minutes < 0) {
+                    minutes = 59;
+                    hours--;
+                    
+                    if (hours < 0) {
+                        hours = 2;
+                        minutes = 45;
+                        seconds = 0;
+                    }
+                }
+            }
+            
+            hoursElement.textContent = hours.toString().padStart(2, '0');
+            minutesElement.textContent = minutes.toString().padStart(2, '0');
+            secondsElement.textContent = seconds.toString().padStart(2, '0');
+        }
+        
+        setInterval(updateCountdown, 1000);
+        
+        // FAQ Accordion
+        const faqItems = document.querySelectorAll('.bg-white.rounded-2xl.shadow-lg h3');
+        faqItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const content = this.nextElementSibling;
+                content.classList.toggle('hidden');
+                
+                const icon = this.querySelector('i');
+                if (icon.classList.contains('fa-chevron-down')) {
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-up');
+                } else {
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                }
+            });
+        });
+        
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
